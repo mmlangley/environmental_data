@@ -1,0 +1,34 @@
+---
+title: "R Markdown Documents - Part 1"
+author: "Melissa Langley"
+subtitle: Analysis of Environmental Data
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+# Introduction
+Hi! My name is **Melissa Langley** and I am a graduate student in *Environmental Conservation*. My concentration is Water, Wetlands, and Watersheds, and my advisor is Dr. Timothy Randhir. I like to cook, draw, and be outside.
+
+# Concepts List
+1. Basic R
+2. How to assess the quality of a data set
+3. How to identify trends in data
+
+# Course List
+* Conservation Biology
+* Aquatic Ecology
+* Sociolinguistics
+
+
+
+```{r}
+
+```
+
+
+

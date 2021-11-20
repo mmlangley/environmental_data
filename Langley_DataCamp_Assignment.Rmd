@@ -1,0 +1,43 @@
+---
+title: "DataCamp"
+author: "Melissa Langley"
+date: "09/09/2021"
+output: html_document
+---
+
+# Section 1 Variables
+1. Character
+2. Numeric
+3. Character
+4. Adding b1 and b2 triggers an error because the variables are in different classes
+5. Yes. Integers are also numerics, so they can be added.
+6. Adding b1 and c1 results in the sum of the integers included in c1 being added to the value of b1.
+
+# Section 2 Vectors
+7. v1 <- c(-2:2)
+8. v2 <- v1*3
+9. sum(v2)
+
+# Section 3 Matrices
+10. mat_1 <- matrix(vec_4, byrow = TRUE, nrow = 3)
+11. mat_2 <- matrix(vec_4, byrow = FALSE, nrow = 3)
+
+# Section 3 Lists
+12. my_list_1 <- list(5.2, "five point two", v3 <- c(0:5))   
+names(my_list_1) <- c("one", "two", "three")
+13. my_list_1[[3]]
+14. my_list_1$one
+
+# Section 3 Logical Test and Subsetting
+15. my_bool_vec <- my_vec == 3
+16. my_vec[my_bool_vec]
+
+
+
+
+
+
+
+
+
+
