@@ -813,10 +813,16 @@ pnorm(6)</code></pre>
 <pre class="r"><code>##The output changes if we change the default values. Here, we specify that standard deviation = 2.
 pnorm(6, 0, 3)</code></pre>
 <pre><code>## [1] 0.9772499</code></pre>
+<pre class="r"><code>##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+pnorm(6,lower.tail = FALSE)</code></pre>
+<pre><code>## [1] 9.865876e-10</code></pre>
 <p>qnorm( ) is the quantile function for a normal distribution.</p>
 <pre class="r"><code>##The defaults for the mean and standard deviation are 0 and 1, respectively.The defaults for lower.tail and log.p are true and false, respectively.Here, we also use the c( ) argument to in our vector.
 qnorm(c(0.025, 0.975))</code></pre>
 <pre><code>## [1] -1.959964  1.959964</code></pre>
+<pre class="r"><code>##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+qnorm(c(0.025, 0.975), sd = 1, lower.tail = FALSE)</code></pre>
+<pre><code>## [1]  1.959964 -1.959964</code></pre>
 <p>dbinom( ) is the density function for a binomial distribution.</p>
 <pre class="r"><code>##We specify the vector, number of trials, and the probability of success on each trial. The default for log.p is false.
 dbinom(6, 20, .25)</code></pre>
@@ -825,10 +831,16 @@ dbinom(6, 20, .25)</code></pre>
 <pre class="r"><code>##We specify the vector, number of trials, and the probability of success on each trial. The defaults for lower.tail and log.p are true and false, respectively.
 pbinom(6, 20, .25)</code></pre>
 <pre><code>## [1] 0.7857819</code></pre>
+<pre class="r"><code>##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+pbinom(6, 20, .25, lower.tail = FALSE)</code></pre>
+<pre><code>## [1] 0.2142181</code></pre>
 <p>qbinom( ) is the quantile function for a binomial distribution.</p>
 <pre class="r"><code>##We specify the vector, number of trials, and the probability of success on each trial. The defaults for lower.tail and log.p are true and false, respectively.
 qbinom((c(0.025, 0.975)), 20, .25)</code></pre>
 <pre><code>## [1] 2 9</code></pre>
+<pre class="r"><code>##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+qbinom(c(0.025, 0.975), 20, .25, lower.tail = FALSE)</code></pre>
+<pre><code>## [1] 9 2</code></pre>
 </div>
 </div>
 

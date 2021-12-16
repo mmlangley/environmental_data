@@ -193,11 +193,16 @@ pnorm( ) is the distribution function for a normal distribution.
 pnorm(6)
 ##The output changes if we change the default values. Here, we specify that standard deviation = 2.
 pnorm(6, 0, 3)
+##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+pnorm(6,lower.tail = FALSE)
 ```
 qnorm( ) is the quantile function for a normal distribution.
 ```{r}
 ##The defaults for the mean and standard deviation are 0 and 1, respectively.The defaults for lower.tail and log.p are true and false, respectively.Here, we also use the c( ) argument to in our vector.
 qnorm(c(0.025, 0.975))
+##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+qnorm(c(0.025, 0.975), sd = 1, lower.tail = FALSE)
+
 ```
 dbinom( ) is the density function for a binomial distribution.
 ```{r}
@@ -208,11 +213,15 @@ pbinom( ) is the distibution function for a binomial distribution.
 ```{r}
 ##We specify the vector, number of trials, and the probability of success on each trial. The defaults for lower.tail and log.p are true and false, respectively.
 pbinom(6, 20, .25)
+##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+pbinom(6, 20, .25, lower.tail = FALSE)
 ```
 qbinom( ) is the quantile function for a binomial distribution.
 ```{r}
 ##We specify the vector, number of trials, and the probability of success on each trial. The defaults for lower.tail and log.p are true and false, respectively.
 qbinom((c(0.025, 0.975)), 20, .25)
+##If lower.tail is changed to false, it gives the area to the right of the x value instead of the left. This gives us the inverse.
+qbinom(c(0.025, 0.975), 20, .25, lower.tail = FALSE)
 ```
 
 
