@@ -1,0 +1,108 @@
+---
+title: 'Part 2: Data Analysis'
+author: "Melissa Langley"
+date: "12/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+**Data Exploration: Numerical Exploration**
+```{r}
+require(here)
+delomys <- read.csv(here("data", "delomys.csv"))
+summary(delomys$body_mass)
+summary(delomys$body_length)
+shapiro.test(delomys$body_mass)
+shapiro.test(delomys$body_length)
+```
+
+**Data Exploration: Graphical Exploration**
+```{r}
+plot(x = delomys$body_mass, y = delomys$body_length,
+     main = "Delomys Body Mass and Length",
+     xlab = "Body Mass", 
+     ylab = "Body Length",
+     pch = 8,
+     cex = .6,
+     col = "maroon")
+hist(delomys$body_mass, 
+     main = "Delomys Body Mass", 
+     xlab = "Body Mass",
+     col = "navy")
+hist(delomys$body_length,
+     main = "Delomys Body Length",
+     xlab = "Body Length",
+     col = "dark green")
+boxplot(body_mass ~ binomial, data = delomys,main = "Body Mass: Species", ylab = "Body Mass", xlab = "Species", names = c("dorsalis", "sublineatus"))
+boxplot(body_mass ~ sex, data = delomys,main = "Body Mass: Sex", ylab = "Body Mass", xlab = "Sex", names = c("Female", "Male"))
+boxplot(body_mass ~ binomial*sex, data = delomys,main = "Body Mass: Species and Sex", ylab = "Body Mass", xlab = "Species \nand Sex", las = 2, names = c("Dorsalis\nFemale", "Sublineatus\nFemale", "Dorsalis\nMale", "Sublineatus\nMale"))
+```
+
+**Data Exploration: Model Building**
+```{r}
+fit1 = lm(body_length ~ body_mass, data = delomys)
+hist(residuals(fit1), 
+     main = "Fit 1 Residuals",
+     xlab = "Fit 1 Residuals",
+     col = "lavender")
+shapiro.test(fit1$residuals)
+
+fit2 = lm(body_mass ~ sex, data = delomys)
+hist(fit2$residuals, 
+     main = "Fit 2 Residuals",
+     xlab = "Fit 2 Residuals",
+     col = "light blue")
+shapiro.test(fit2$residuals)
+
+fit3 = lm(body_mass ~ binomial, data = delomys)
+hist(residuals(fit3), 
+     main = "Fit 3 Residuals",
+     xlab = "Fit 3 Residuals",
+     col = "purple")
+shapiro.test(fit3$residuals)
+
+fit4 = lm(body_mass ~ sex + binomial, data = delomys)
+hist(residuals(fit4), 
+     main = "Fit 4 Residuals",
+     xlab = "Fit 4 Residuals",
+     col = "turquoise")
+shapiro.test(fit4$residuals)
+
+fit5 = lm(body_mass ~ sex * binomial, data = delomys)
+hist(residuals(fit5), 
+     main = "Fit 5 Residuals",
+     xlab = "Fit 5 Residuals",
+     col = "aquamarine")
+shapiro.test(fit5$residuals)
+```
+
+**Data Exploration: Model Interpretation**
+```{r}
+knitr::kable(coef(summary(fit1)))
+knitr::kable(anova(fit1))
+
+knitr::kable(coef(summary(fit2)))
+knitr::kable(anova(fit2))
+
+knitr::kable(coef(summary(fit3)))
+knitr::kable(anova(fit3))
+
+knitr::kable(coef(summary(fit4)))
+knitr::kable(anova(fit4))
+
+knitr::kable(coef(summary(fit5)))
+knitr::kable(anova(fit5))
+```
+
+**Data Exploration: Model Comparison**
+```{r}
+AIC(fit2)
+AIC(fit3)
+AIC(fit4)
+AIC(fit5)
+```
+

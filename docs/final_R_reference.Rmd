@@ -1,0 +1,222 @@
+---
+title: "R Reference Guide"
+author: "Melissa Langley"
+date: "12/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Reference Guide {.tabset .tabset-pills}
+## Loading Data and Packages
+
+Load the necessary packages
+```{r}
+##Load the here( ) package
+require(here)
+```
+
+
+```{r}
+##Load the correct package. In this example, we will load palmerpenguins using require( ) and library( )
+require(palmerpenguins)
+library(palmerpenguins)
+```
+
+Create a data frame. In this example, we will use the 2021 gingko data to create a data frame called ginkgo.
+```{r}
+gingko <- read.csv(here("data", "ginkgo_data_2021.csv"))
+```
+
+## Data Structures
+
+The function c() combines or concatenates its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements).\
+All of the elements must be of the same type.\
+I can’t combine character and numeric types in the same call to c()\
+Here’s two examples using numeric and character data types:
+```{r}
+## Create a vector of numbers:
+num_vec  = c(1, 4, 8, 9, 13)
+
+## Create a vector of characters:
+char_vec = c("a", "fish", "data is cool")
+```
+I can show the contents of a vector by typing the name of the vector, or using the print() function.
+```{r}
+## Typing the name of the vector into the console prints the contents
+num_vec
+## The print() function accomplishes the same task:
+print(char_vec)
+```
+
+See how long the vector or other object is or set the length of the vector or other object.
+```{r}
+##See the length of a vector from 1 to 45.
+length(c(1:45))
+```
+The function matrix( ) organizes elements into a specified number of rows and columns.\
+The elements must be of the same data type.
+Date types include numeric, character, and logical, but they are all constructed the same way.
+```{r}
+##Start creating a matrix by choosing the elements you want in the first argument. This first element can be constructed with either of the following methods:
+c(4, 5, 6)
+4:6
+##The argument byrow indicates that the matrix is filled by the rows.
+byrow = TRUE
+##If we want the matrix to be filled by the columns, set byrow to false.
+byrow = FALSE
+##Name a matrix using the name you want and the information above. Some variations include:
+example_matrix <- matrix(4:6, nrow = 3, byrow = TRUE)
+example_matrix <- matrix(c(4, 5, 6), nrow = 3, byrow = FALSE)
+```
+Data frames allow us to analyze data sets with more than one element type. Variables are set as columns and observations are set as rows.
+```{r}
+##Create a data frame as follows where "data" specifies the location and the following element specifies the \exact file name.
+ginkgo <- read.csv(here("data", "ginkgo_data_2021.csv"))
+##See the beginning (head) and end (tail) of the data frame 
+head(ginkgo)
+tail(ginkgo)
+##See an overview of your data including the number of observations and variables, data types, and more.
+str(ginkgo)
+##See how many rows are in the gingko data set or set the number of rows in a matrix.
+nrow(gingko)
+```
+
+```{r}
+
+```
+
+```{r}
+##See how many columns are in the gingko data set or set the number of columns in a matrix.
+ncol(gingko)
+```
+
+```{r}
+##The dimensions argument tell us how many rows and columns the ginkgo data set has.
+dim(gingko)
+```
+## Subsetting\
+Subsetting allows us to see just a portion of the data. Rows, columns, or individual elements can be selected.
+```{r}
+##Select a column from the data set.
+gingko$petiole_length
+##Select the first row of the gingko data
+help(subset)
+ginkgo[1,]
+##Select the element in row 2, column 3
+ginkgo[2, 3]
+##Select the third column of the gingko data
+ginkgo[,3]
+##Retrieve all data for Adelie penguins from the penguin data set
+subset(penguins, species == "Adelie")
+```
+## Numerical Data Exploration
+```{r}
+##summary( ) allows us to see important features of a data set for each column. This can include numerical values like the minimum and mean as well as logical values like true and false.
+summary(ginkgo)
+
+##mean( ) provides the mean value of a variable within a data set.
+mean(gingko$notch_depth)
+
+##sd( ) provides the standard deviation of a variable within a data set.
+sd(ginkgo$max_width)
+```
+## Graphical Data Exploration
+
+Scatterplots
+```{r}
+##The plot( ) function makes a scatterplot when you specify the x and y axes.
+plot(x = ginkgo$max_depth, y = ginkgo$max_width,
+##Specify the title with the argument main and put the title in quotation marks.
+     main = "Gingko Leaf Maximum Depth and Width",
+##Specify the x and y axis names with xlab and ylab and but the names in quotation marks.
+     xlab = "Maximum depth (cm)", 
+     ylab = "Maximum width (cm)",
+##Specify limits for the x and y axes.
+     xlim = c(10, 150),
+     ylim = c(5, 140),
+##Specify the shape of the points in the scatterplot.Choose from a variety of shapes, each of which has a corresponding number.8 is a star.
+     pch = 8,
+##Specify the size of the points so that they are easier to interpret
+     cex = .8,
+##Specify the color of the points. Use quotation marks and choose from a wide variety of colors offered by RStudio.
+     col = "maroon")
+```
+
+
+Histograms
+```{r}
+##Histograms are constructed similarly to scatterplots. This one shows flipper lengths from the penguin data set.
+hist(penguins$flipper_length_mm, main = "Flipper Lengths", xlab = "Flipper Lengths (mm)", 
+##The breaks argument specifies the number of columns the data is broken into. This can provide a clearer\ representation of differences within the data set.
+     breaks = 15)
+```
+
+
+Boxplots
+```{r}
+##Boxplots are constructed similarly to scatterplots.This one shows petiole lengths from the gingko data set.
+boxplot(gingko$petiole_length)
+```
+
+
+Conditional boxplots
+```{r}
+##Conditional boxplots allow for closer analysis of how a variable is conditioned on another variable.
+boxplot(max_width ~ seeds_present, data = ginkgo, main = "Seeds Present and Maximum Width", xlab = "Seeds Present", ylab = "Maximum Width")
+```
+
+
+Plots can be combined into different configurations to make panels that are easier to read and to format into other work.
+```{r}
+## par(mfrow) organizes the plots into a panel with a specified number of rows and columns.
+par(mfrow = c(2, 2))
+hist(penguins$flipper_length_mm, main = "Flipper Lengths", xlab = "Flipper Lengths (mm)")
+hist(penguins$body_mass_g, main = "Body Mass", xlab = "Body Mass (g)")
+hist(penguins$bill_depth_mm, main = "Bill Depths", xlab = "Bill Depths (mm)")
+hist(penguins$bill_length_mm, main = "Bill Lengths", xlab = "Bill Lengths (mm)")
+```
+
+## Distribution Functions
+dnorm( ) is the density function for a normal distribution.
+```{r}
+##The defaults for the mean and standard deviation are 0 and 1, respectively.The default for log is false.
+dnorm(6)
+##The output changes if we change the default values. Here, we specify that mean = 5.
+dnorm(6, 5)
+```
+pnorm( ) is the distribution function for a normal distribution.
+```{r}
+##The defaults for the mean and standard deviation are 0 and 1, respectively.The defaults for lower.tail and log.p are true and false, respectively.
+pnorm(6)
+##The output changes if we change the default values. Here, we specify that standard deviation = 2.
+pnorm(6, 0, 3)
+```
+qnorm( ) is the quantile function for a normal distribution.
+```{r}
+##The defaults for the mean and standard deviation are 0 and 1, respectively.The defaults for lower.tail and log.p are true and false, respectively.Here, we also use the c( ) argument to in our vector.
+qnorm(c(0.025, 0.975))
+```
+dbinom( ) is the density function for a binomial distribution.
+```{r}
+##We specify the vector, number of trials, and the probability of success on each trial. The default for log.p is false.
+dbinom(6, 20, .25)
+```
+pbinom( ) is the distibution function for a binomial distribution.
+```{r}
+##We specify the vector, number of trials, and the probability of success on each trial. The defaults for lower.tail and log.p are true and false, respectively.
+pbinom(6, 20, .25)
+```
+qbinom( ) is the quantile function for a binomial distribution.
+```{r}
+##We specify the vector, number of trials, and the probability of success on each trial. The defaults for lower.tail and log.p are true and false, respectively.
+qbinom((c(0.025, 0.975)), 20, .25)
+```
+
+
+
+
+
+

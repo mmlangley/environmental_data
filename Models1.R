@@ -13,7 +13,7 @@ shapiro.test(catrate$cat.rate)
 help(t.test)
 t.test(catrate$cat.rate, alternative = "g", mu = 2/7)
 
-t.test(catrate$cat.rate, mu = 2/7, alternative = "g")
+t.test(catrate$cat.rate, mu = 2/7, alternative = "t")
 
 wilcox.test(catrate$cat.rate, mu = 2 / 7)
 
@@ -38,3 +38,5 @@ hist(dat_adelie$flipper_length_mm,
      main = "Adelie Flipper Length", 
      xlab = "Flipper Length (mm)") 
 par(mfrow = c(1, 2))
+
+t.test(dat_chinstrap$flipper_length_mm, dat_adelie$flipper_length_mm, "t")
